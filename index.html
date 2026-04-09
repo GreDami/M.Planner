@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ministry Planner</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="icon" type="image/png" href="screenshots/AppIcon~ios-marketing.png">
   <style>
     :root {
@@ -162,25 +163,34 @@
     .screenshots {
       margin-top: 64px;
       display: flex;
-      gap: 16px;
+      gap: 20px;
       overflow-x: auto;
-      padding: 8px 24px 24px;
+      padding: 24px 32px 48px;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
       justify-content: center;
       max-width: 100%;
+      perspective: 1200px;
     }
 
     .screenshots::-webkit-scrollbar { display: none; }
 
     .screenshots img {
-      height: 420px;
-      border-radius: 24px;
-      border: 1px solid var(--border);
-      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+      height: 430px;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 32px 80px rgba(0,0,0,.65), 0 0 0 1px rgba(128,77,179,.1);
       scroll-snap-align: start;
       flex-shrink: 0;
       object-fit: cover;
+      transition: transform .35s cubic-bezier(.22,.68,0,1.2), box-shadow .35s;
+    }
+    .screenshots img:nth-child(odd)  { transform: rotate(-1.5deg) translateY(6px); }
+    .screenshots img:nth-child(even) { transform: rotate(1.5deg)  translateY(-6px); }
+    .screenshots img:hover {
+      transform: scale(1.06) rotate(0deg) translateY(-12px) !important;
+      box-shadow: 0 48px 100px rgba(0,0,0,.75), 0 0 0 1px rgba(128,77,179,.35), 0 0 40px rgba(128,77,179,.2);
+      z-index: 2;
     }
 
     /* ── STATS ── */
@@ -217,29 +227,46 @@
 
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
     }
 
     .feature-card {
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 26px 22px;
-      transition: border-color .2s, transform .2s;
+      border-radius: 22px;
+      padding: 30px 26px;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
+      position: relative;
+      overflow: hidden;
     }
-    .feature-card:hover { border-color: rgba(128,77,179,.4); transform: translateY(-3px); }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(128,77,179,.5), transparent);
+      opacity: 0;
+      transition: opacity .25s;
+    }
+    .feature-card:hover {
+      border-color: rgba(128,77,179,.35);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.4), 0 0 0 1px rgba(128,77,179,.15);
+    }
+    .feature-card:hover::before { opacity: 1; }
 
     .feature-icon {
-      width: 46px; height: 46px;
-      background: rgba(128,77,179,.15);
-      border-radius: 13px;
+      width: 54px; height: 54px;
+      background: linear-gradient(135deg, rgba(128,77,179,.25), rgba(92,53,128,.12));
+      border: 1px solid rgba(128,77,179,.2);
+      border-radius: 16px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 21px; margin-bottom: 14px;
+      font-size: 24px; margin-bottom: 16px;
     }
 
-    .feature-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 7px; }
-    .feature-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .feature-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+    .feature-card p { font-size: 13px; color: var(--muted); line-height: 1.7; }
 
     /* ── HIGHLIGHTS ── */
     .highlights {
@@ -364,26 +391,6 @@
   </div>
 </div>
 
-<!-- STATS -->
-<div class="stats">
-  <div class="stat">
-    <div class="stat-number">7</div>
-    <div class="stat-label" data-t="stat1">Languages supported</div>
-  </div>
-  <div class="stat">
-    <div class="stat-number">100%</div>
-    <div class="stat-label" data-t="stat2">Free to use</div>
-  </div>
-  <div class="stat">
-    <div class="stat-number">iCloud</div>
-    <div class="stat-label" data-t="stat3">Sync across devices</div>
-  </div>
-  <div class="stat">
-    <div class="stat-number">iOS 15+</div>
-    <div class="stat-label" data-t="stat4">Supported</div>
-  </div>
-</div>
-
 <!-- FEATURES -->
 <div class="section-wrap" id="features">
   <div class="section-label" data-t="feat-label">Features</div>
@@ -442,9 +449,9 @@
     <p data-t="h3d">Export your data as a backup file at any time. Restore it on any device — your data is always safe.</p>
   </div>
   <div class="highlight accent">
-    <div class="highlight-icon">🌙</div>
-    <h3 data-t="h4t">Dark Mode Only</h3>
-    <p data-t="h4d">Designed exclusively for dark mode — easy on the eyes, day or night. A clean, focused experience.</p>
+    <div class="highlight-icon">🎁</div>
+    <h3 data-t="h4t">100% Free</h3>
+    <p data-t="h4d">Download for free. No subscription, no account, no hidden fees. Everything is included.</p>
   </div>
 </div>
 
@@ -487,10 +494,9 @@
 <script>
 const T = {
   en: {
-    badge:"Available on the App Store", h1a:"Your ministry,", h1b:"beautifully tracked.",
+    badge:"Available on the App Store", h1a:"Your ministry", h1b:"beautifully tracked.",
     sub:"Log hours, plan your schedule, track Bible studies, and see your progress — all in one place.",
     dl:"Download on the App Store",
-    stat1:"Languages supported", stat2:"Free to use", stat3:"Sync across devices", stat4:"Supported",
     "feat-label":"Features", "feat-title":"Everything you need",
     "feat-sub":"A simple, powerful tool built for ministry work — no clutter, just what matters.",
     f1t:"Hour Tracking", f1d:"Log your ministry hours by day. See monthly totals at a glance and send your report with one tap.",
@@ -502,16 +508,15 @@ const T = {
     h1t:"iCloud Sync", h1d:"Your data syncs automatically across all your Apple devices. Switch between iPhone and iPad seamlessly.",
     h2t:"Face ID & Touch ID", h2d:"Keep your ministry data private. Enable biometric lock and the app requires authentication every time.",
     h3t:"Backup & Restore", h3d:"Export your data as a backup file at any time. Restore it on any device — your data is always safe.",
-    h4t:"Dark Mode Only", h4d:"Designed exclusively for dark mode — easy on the eyes, day or night. A clean, focused experience.",
+    h4t:"100% Free", h4d:"Download for free. No subscription, no account, no hidden fees. Everything is included.",
     "lang-title":"Available in 7 languages",
     "cta-h":"Start tracking today.", "cta-p":"Free to download. No subscription. No account needed.",
     privacy:"Privacy Policy", terms:"Terms of Use", support:"Support", copyright:"© 2026 GreDami. All rights reserved."
   },
   de: {
-    badge:"Im App Store verfügbar", h1a:"Dein Dienst,", h1b:"schön erfasst.",
+    badge:"Im App Store verfügbar", h1a:"Dein Dienst", h1b:"schön erfasst.",
     sub:"Stunden erfassen, Dienst planen, Bibelstudien verfolgen — alles an einem Ort.",
     dl:"Im App Store laden",
-    stat1:"Sprachen unterstützt", stat2:"Kostenlos", stat3:"Geräteübergreifend", stat4:"Unterstützt",
     "feat-label":"Funktionen", "feat-title":"Alles was du brauchst",
     "feat-sub":"Ein einfaches, leistungsstarkes Tool für den Dienst — ohne Ablenkung, nur das Wesentliche.",
     f1t:"Stundenerfassung", f1d:"Erfasse deine Dienststunden täglich. Sieh monatliche Summen auf einen Blick.",
@@ -523,16 +528,15 @@ const T = {
     h1t:"iCloud-Sync", h1d:"Deine Daten synchronisieren sich automatisch auf allen Apple-Geräten.",
     h2t:"Face ID & Touch ID", h2d:"Halte deine Daten privat. Aktiviere die biometrische Sperre.",
     h3t:"Sichern & Wiederherstellen", h3d:"Exportiere deine Daten als Backup-Datei. Stelle sie auf jedem Gerät wieder her.",
-    h4t:"Nur Dark Mode", h4d:"Exklusiv für Dark Mode gestaltet — angenehm für die Augen, Tag und Nacht.",
+    h4t:"100% Kostenlos", h4d:"Kostenlos herunterladen. Kein Abo, kein Konto, keine versteckten Kosten. Alles inklusive.",
     "lang-title":"In 7 Sprachen verfügbar",
     "cta-h":"Jetzt starten.", "cta-p":"Kostenlos herunterladen. Kein Abo. Kein Konto.",
     privacy:"Datenschutz", terms:"Nutzungsbedingungen", support:"Support", copyright:"© 2026 GreDami. Alle Rechte vorbehalten."
   },
   es: {
-    badge:"Disponible en el App Store", h1a:"Tu ministerio,", h1b:"registrado con estilo.",
+    badge:"Disponible en el App Store", h1a:"Tu ministerio", h1b:"registrado con estilo.",
     sub:"Registra horas, planifica tu ministerio, lleva el seguimiento de estudios bíblicos — todo en un lugar.",
     dl:"Descargar en el App Store",
-    stat1:"Idiomas disponibles", stat2:"Gratis", stat3:"Sincronización", stat4:"Compatible",
     "feat-label":"Funciones", "feat-title":"Todo lo que necesitas",
     "feat-sub":"Una herramienta simple y potente para el ministerio — sin desorden, solo lo que importa.",
     f1t:"Registro de horas", f1d:"Registra tus horas de ministerio por día. Ve los totales mensuales de un vistazo.",
@@ -544,37 +548,35 @@ const T = {
     h1t:"Sincronización iCloud", h1d:"Tus datos se sincronizan automáticamente en todos tus dispositivos Apple.",
     h2t:"Face ID y Touch ID", h2d:"Mantén tus datos privados. Activa el bloqueo biométrico.",
     h3t:"Copia de seguridad", h3d:"Exporta tus datos como archivo de respaldo en cualquier momento.",
-    h4t:"Solo modo oscuro", h4d:"Diseñado exclusivamente para el modo oscuro — agradable para los ojos.",
+    h4t:"100% Gratis", h4d:"Descarga gratuita. Sin suscripción, sin cuenta, sin cargos ocultos. Todo incluido.",
     "lang-title":"Disponible en 7 idiomas",
     "cta-h":"Empieza hoy.", "cta-p":"Descarga gratuita. Sin suscripción. Sin cuenta.",
     privacy:"Privacidad", terms:"Términos de uso", support:"Soporte", copyright:"© 2026 GreDami. Todos los derechos reservados."
   },
   fr: {
-    badge:"Disponible sur l'App Store", h1a:"Ton ministère,", h1b:"magnifiquement suivi.",
-    sub:"Enregistrez vos heures, planifiez votre ministère, suivez les études bibliques — tout en un seul endroit.",
+    badge:"Disponible sur l'App Store", h1a:"Ton ministère", h1b:"magnifiquement suivi.",
+    sub:"Enregistre tes heures, planifie ton ministère, suis les études bibliques — tout en un seul endroit.",
     dl:"Télécharger sur l'App Store",
-    stat1:"Langues supportées", stat2:"Gratuit", stat3:"Synchronisation", stat4:"Compatible",
-    "feat-label":"Fonctionnalités", "feat-title":"Tout ce dont vous avez besoin",
+    "feat-label":"Fonctionnalités", "feat-title":"Tout ce dont tu as besoin",
     "feat-sub":"Un outil simple et puissant pour le ministère — sans encombrement, juste l'essentiel.",
-    f1t:"Suivi des heures", f1d:"Enregistrez vos heures de ministère par jour. Consultez les totaux mensuels en un coup d'œil.",
-    f2t:"Planification", f2d:"Planifiez votre ministère à l'avance. Les jours codés par couleur montrent vos progrès.",
-    f3t:"Études bibliques", f3d:"Suivez le nombre d'études bibliques par mois — compteur simple, toujours à portée de main.",
-    f4t:"Graphiques", f4d:"Visualisez votre année de ministère avec de beaux graphiques à barres.",
-    f5t:"Rappels intelligents", f5d:"Rappel matinal à 9h. Rappel du soir à 20h pour enregistrer vos heures.",
-    f6t:"Widget d'écran", f6d:"Voyez les heures planifiées et le total mensuel directement sur votre écran d'accueil.",
-    h1t:"Synchronisation iCloud", h1d:"Vos données se synchronisent automatiquement sur tous vos appareils Apple.",
-    h2t:"Face ID & Touch ID", h2d:"Gardez vos données privées. Activez le verrouillage biométrique.",
-    h3t:"Sauvegarde", h3d:"Exportez vos données comme fichier de sauvegarde à tout moment.",
-    h4t:"Mode sombre uniquement", h4d:"Conçu exclusivement pour le mode sombre — agréable pour les yeux.",
+    f1t:"Suivi des heures", f1d:"Enregistre tes heures de ministère par jour. Consulte les totaux mensuels en un coup d'œil.",
+    f2t:"Planification", f2d:"Planifie ton ministère à l'avance. Les jours codés par couleur montrent tes progrès.",
+    f3t:"Études bibliques", f3d:"Suis le nombre d'études bibliques par mois — compteur simple, toujours à portée de main.",
+    f4t:"Graphiques", f4d:"Visualise ton année de ministère avec de beaux graphiques à barres.",
+    f5t:"Rappels intelligents", f5d:"Rappel matinal à 9h. Rappel du soir à 20h pour enregistrer tes heures.",
+    f6t:"Widget d'écran", f6d:"Vois les heures planifiées et le total mensuel directement sur ton écran d'accueil.",
+    h1t:"Synchronisation iCloud", h1d:"Tes données se synchronisent automatiquement sur tous tes appareils Apple.",
+    h2t:"Face ID & Touch ID", h2d:"Garde tes données privées. Active le verrouillage biométrique.",
+    h3t:"Sauvegarde", h3d:"Exporte tes données comme fichier de sauvegarde à tout moment.",
+    h4t:"100% Gratuit", h4d:"Télécharge gratuitement. Sans abonnement, sans compte, sans frais cachés. Tout est inclus.",
     "lang-title":"Disponible en 7 langues",
-    "cta-h":"Commencez aujourd'hui.", "cta-p":"Téléchargement gratuit. Sans abonnement. Sans compte.",
+    "cta-h":"Commence aujourd'hui.", "cta-p":"Téléchargement gratuit. Sans abonnement. Sans compte.",
     privacy:"Confidentialité", terms:"Conditions d'utilisation", support:"Support", copyright:"© 2026 GreDami. Tous droits réservés."
   },
   it: {
-    badge:"Disponibile sull'App Store", h1a:"Il tuo ministero,", h1b:"tracciato magnificamente.",
+    badge:"Disponibile sull'App Store", h1a:"Il tuo ministero", h1b:"tracciato magnificamente.",
     sub:"Registra le ore, pianifica il ministero, monitora gli studi biblici — tutto in un unico posto.",
     dl:"Scarica sull'App Store",
-    stat1:"Lingue supportate", stat2:"Gratuito", stat3:"Sincronizzazione", stat4:"Supportato",
     "feat-label":"Funzionalità", "feat-title":"Tutto ciò di cui hai bisogno",
     "feat-sub":"Uno strumento semplice e potente per il ministero — senza confusione, solo l'essenziale.",
     f1t:"Registro ore", f1d:"Registra le tue ore di ministero al giorno. Vedi i totali mensili in un colpo d'occhio.",
@@ -586,37 +588,35 @@ const T = {
     h1t:"Sincronizzazione iCloud", h1d:"I tuoi dati si sincronizzano automaticamente su tutti i tuoi dispositivi Apple.",
     h2t:"Face ID e Touch ID", h2d:"Mantieni i tuoi dati privati. Attiva il blocco biometrico.",
     h3t:"Backup e ripristino", h3d:"Esporta i tuoi dati come file di backup in qualsiasi momento.",
-    h4t:"Solo modalità scura", h4d:"Progettato esclusivamente per la modalità scura — piacevole per gli occhi.",
+    h4t:"100% Gratuito", h4d:"Scarica gratuitamente. Nessun abbonamento, nessun account, nessun costo nascosto. Tutto incluso.",
     "lang-title":"Disponibile in 7 lingue",
     "cta-h":"Inizia oggi.", "cta-p":"Download gratuito. Nessun abbonamento. Nessun account.",
     privacy:"Privacy", terms:"Termini di utilizzo", support:"Supporto", copyright:"© 2026 GreDami. Tutti i diritti riservati."
   },
   pt: {
-    badge:"Disponível na App Store", h1a:"O seu ministério,", h1b:"lindamente registado.",
-    sub:"Registe horas, planeie o ministério, acompanhe estudos bíblicos — tudo num só lugar.",
+    badge:"Disponível na App Store", h1a:"O teu ministério", h1b:"lindamente registado.",
+    sub:"Regista as tuas horas, planeia o ministério, acompanha estudos bíblicos — tudo num só lugar.",
     dl:"Descarregar na App Store",
-    stat1:"Idiomas suportados", stat2:"Gratuito", stat3:"Sincronização", stat4:"Suportado",
-    "feat-label":"Funcionalidades", "feat-title":"Tudo o que precisa",
+    "feat-label":"Funcionalidades", "feat-title":"Tudo o que precisas",
     "feat-sub":"Uma ferramenta simples e poderosa para o ministério — sem complicações, só o essencial.",
-    f1t:"Registo de horas", f1d:"Registe as suas horas de ministério por dia. Veja os totais mensais de relance.",
-    f2t:"Planeamento", f2d:"Planeie o seu ministério com antecedência. Os dias com código de cores mostram o seu progresso.",
-    f3t:"Estudos bíblicos", f3d:"Acompanhe o número de estudos bíblicos por mês — contador simples, sempre à mão.",
-    f4t:"Gráficos", f4d:"Visualize o seu ano de ministério com belos gráficos de barras.",
+    f1t:"Registo de horas", f1d:"Regista as tuas horas de ministério por dia. Vê os totais mensais de relance.",
+    f2t:"Planeamento", f2d:"Planeia o teu ministério com antecedência. Os dias com código de cores mostram o teu progresso.",
+    f3t:"Estudos bíblicos", f3d:"Acompanha o número de estudos bíblicos por mês — contador simples, sempre à mão.",
+    f4t:"Gráficos", f4d:"Visualiza o teu ano de ministério com belos gráficos de barras.",
     f5t:"Lembretes", f5d:"Lembrete matinal às 9h. Lembrete nocturno às 20h para registar as horas.",
-    f6t:"Widget", f6d:"Veja as horas planeadas e o total mensal directamente no ecrã inicial.",
-    h1t:"Sincronização iCloud", h1d:"Os seus dados sincronizam automaticamente em todos os seus dispositivos Apple.",
-    h2t:"Face ID e Touch ID", h2d:"Mantenha os seus dados privados. Active o bloqueio biométrico.",
-    h3t:"Cópia de segurança", h3d:"Exporte os seus dados como ficheiro de backup em qualquer altura.",
-    h4t:"Apenas modo escuro", h4d:"Concebido exclusivamente para o modo escuro — agradável para os olhos.",
+    f6t:"Widget", f6d:"Vê as horas planeadas e o total mensal directamente no ecrã inicial.",
+    h1t:"Sincronização iCloud", h1d:"Os teus dados sincronizam automaticamente em todos os teus dispositivos Apple.",
+    h2t:"Face ID e Touch ID", h2d:"Mantém os teus dados privados. Activa o bloqueio biométrico.",
+    h3t:"Cópia de segurança", h3d:"Exporta os teus dados como ficheiro de backup em qualquer altura.",
+    h4t:"100% Gratuito", h4d:"Descarrega gratuitamente. Sem subscrição, sem conta, sem custos ocultos. Tudo incluído.",
     "lang-title":"Disponível em 7 idiomas",
-    "cta-h":"Comece hoje.", "cta-p":"Download gratuito. Sem subscrição. Sem conta.",
+    "cta-h":"Começa hoje.", "cta-p":"Download gratuito. Sem subscrição. Sem conta.",
     privacy:"Privacidade", terms:"Termos de utilização", support:"Suporte", copyright:"© 2026 GreDami. Todos os direitos reservados."
   },
   ru: {
-    badge:"Доступно в App Store", h1a:"Твоё служение,", h1b:"красиво отслежено.",
+    badge:"Доступно в App Store", h1a:"Твоё служение", h1b:"красиво отслежено.",
     sub:"Записывай часы, планируй служение, отслеживай изучения Библии — всё в одном месте.",
     dl:"Скачать в App Store",
-    stat1:"Поддерживаемых языков", stat2:"Бесплатно", stat3:"Синхронизация", stat4:"Поддерживается",
     "feat-label":"Возможности", "feat-title":"Всё что нужно",
     "feat-sub":"Простой и мощный инструмент для служения — без лишнего, только главное.",
     f1t:"Учёт часов", f1d:"Записывай часы служения по дням. Смотри месячные итоги с первого взгляда.",
@@ -628,7 +628,7 @@ const T = {
     h1t:"Синхронизация iCloud", h1d:"Данные автоматически синхронизируются на всех твоих устройствах Apple.",
     h2t:"Face ID и Touch ID", h2d:"Защити свои данные. Включи биометрическую блокировку приложения.",
     h3t:"Резервная копия", h3d:"Экспортируй данные в файл в любое время. Восстанови на любом устройстве.",
-    h4t:"Только тёмная тема", h4d:"Разработано исключительно для тёмной темы — приятно для глаз днём и ночью.",
+    h4t:"100% Бесплатно", h4d:"Скачай бесплатно. Без подписки, без аккаунта, без скрытых платежей. Всё включено.",
     "lang-title":"Доступно на 7 языках",
     "cta-h":"Начни уже сегодня.", "cta-p":"Бесплатно. Без подписки. Без аккаунта.",
     privacy:"Конфиденциальность", terms:"Условия использования", support:"Поддержка", copyright:"© 2026 GreDami. Все права защищены."
